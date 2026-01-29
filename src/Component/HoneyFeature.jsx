@@ -18,9 +18,7 @@ const HoneyFeature = () => {
           প্রতিদিন দুই চামচ মধুময় বাদাম আপনার উপকার করবে
         </h2>
 
-        {/* content */}
         <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* image */}
           <div className="w-full lg:w-1/2 flex justify-center">
             <Image
               src="/honeyFeature.png"
@@ -31,13 +29,11 @@ const HoneyFeature = () => {
             />
           </div>
 
-          {/* TEXT LIST */}
           <div className="w-full lg:w-1/2">
             <ul className="space-y-6">
               {points.map((text, index) => (
                 <li key={index} className="flex items-start gap-4">
-                  {/* check icon */}
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-400 text-white flex items-center justify-center text-sm font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-yellow-400 text-white flex items-center justify-center text-sm font-bold">
                     <FaCheck />
                   </span>
                   <p className="text-gray-700 text-base md:text-lg leading-relaxed">
@@ -50,7 +46,6 @@ const HoneyFeature = () => {
         </div>
       </div>
 
-      {/* BEE ICON (optional) */}
       <div className="absolute right-10 top-32 hidden lg:block">
         <Image src="/bee1.svg" alt="Bee" width={40} height={40} />
       </div>

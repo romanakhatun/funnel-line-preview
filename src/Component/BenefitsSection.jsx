@@ -37,14 +37,12 @@ const BenefitsSection = () => {
   ];
 
   return (
-    <section className="w-full py-24 bg-[url('/benefits-bg.png')] bg-cover bg-center">
+    <section className="w-full py-24 bg-[url('/benefits-bg.png')] bg-cover bg-center mt-6">
       <div className="max-w-7xl mx-auto px-4">
-        {/* HEADING */}
         <h2 className="text-center text-3xl md:text-4xl font-bold text-[#0a2c1a] mb-16">
           মধুময় বাদাম খাওয়া ফলে যে সকল সমস্যার সমাধান করবে
         </h2>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {items.map((item, index) => (
             <div

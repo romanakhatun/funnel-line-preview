@@ -5,11 +5,11 @@ const JarSection = () => {
   return (
     <section className="w-full py-5">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 place-items-center">
           <Image
             src="/jar1.png"
             alt="Honey Jar 1"
-            width={250}
+            width={336}
             height={350}
             className="object-contain"
           />
@@ -17,7 +17,7 @@ const JarSection = () => {
           <Image
             src="/jar2.png"
             alt="Honey Jar 2"
-            width={250}
+            width={336}
             height={350}
             className="object-contain"
           />
@@ -25,7 +25,7 @@ const JarSection = () => {
           <Image
             src="/jar3.png"
             alt="Honey Jar 3"
-            width={250}
+            width={336}
             height={350}
             className="object-contain"
           />
@@ -33,7 +33,7 @@ const JarSection = () => {
           <Image
             src="/jar4.png"
             alt="Honey Jar 4"
-            width={250}
+            width={336}
             height={350}
             className="object-contain"
           />

@@ -18,7 +18,7 @@ const Hotline = () => {
             যে কোন প্রয়োজনে কল করুন
           </p>
 
-          <p className="text-red-600 text-4xl md:text-5xl font-bold">
+          <p className="text-red-600 text-3xl md:text-5xl font-bold">
             হটলাইন: 01600-324567
           </p>
         </div>

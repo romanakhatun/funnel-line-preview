@@ -4,8 +4,8 @@ import React from "react";
 const FloatingCTA = () => {
   return (
     <>
-      <section className="relative w-full py-20 overflow-hidden">
-        {/* left floating image */}
+      <section className="relative w-full py-20">
+        {/* Left image */}
         <div className="floating-left">
           <Image
             src="/honey_left.svg"
@@ -16,7 +16,7 @@ const FloatingCTA = () => {
           />
         </div>
 
-        {/* right floating imag */}
+        {/* Right image */}
         <div className="floating-right">
           <Image
             src="/honey_left.svg"
@@ -27,9 +27,8 @@ const FloatingCTA = () => {
           />
         </div>
 
-        {/* center content*/}
         <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
-          <button className="bg-yellow-400 hover:bg-yellow-500 transition text-black font-semibold px-10 py-4 rounded-full shadow-lg">
+          <button className="bg-yellow-400 text-black font-semibold px-10 py-4 rounded-full transition duration-500 cursor-pointer hover:scale-105 hover:text-white shadow-[0_67px_80px_#1E140A61,0_43.43px_46.85px_#1E140A31,0_25.81px_25.48px_#1E140A0B,0_13.4px_13px_#1E140A09,0_5.46px_6.52px_#1E140A07,0_1.24px_3.15px_#1E140A04]">
             অর্ডার করতে এখানে ক্লিক করুন
           </button>
 
@@ -40,10 +39,9 @@ const FloatingCTA = () => {
         </div>
       </section>
 
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          {/* Responsive Video */}
-          <div className="relative w-full overflow-hidden shadow-2xl aspect-video">
+      <section className="w-full py-5 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="relative w-full h-90 md:h-125 overflow-hidden aspect-video">
             <iframe
               src="https://www.youtube.com/embed/uFjU5zFJx3E?autoplay=0&mute=0&controls=0&origin=https%3A%2F%2Fpreview.funnelliner.xyz&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&widgetid=1&forigin=https%3A%2F%2Fpreview.funnelliner.xyz%2Flanding-10&aoriginsup=1&vf=1"
               title="Product Video"
