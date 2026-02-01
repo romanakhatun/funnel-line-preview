@@ -18,7 +18,7 @@ const Hero = () => {
           </h1>
 
           {/* Price */}
-          <p className="text-[#a8de63] line-through text-2xl xl:text-4xl">
+          <p className="text-[#a8de63] line-through font-semibold text-2xl xl:text-4xl">
             পূর্বমূল্য: ১৫০০ টাকা
           </p>
           <p className="text-[#f22512] text-3xl lg:text-4xl lg: xl:text-[50px] font-bold mt-1">
