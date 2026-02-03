@@ -1,8 +1,24 @@
 "use client";
+
 import React, { useState } from "react";
-import { Breadcrumb, Button, Dropdown, Space, Checkbox, Divider } from "antd";
-import { FilterOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  Breadcrumb,
+  Button,
+  Dropdown,
+  Space,
+  Checkbox,
+  Divider,
+  Grid,
+  Drawer,
+} from "antd";
+import {
+  FilterOutlined,
+  ArrowLeftOutlined,
+  MenuOutlined,
+} from "@ant-design/icons";
 import { usePathname } from "next/navigation";
+
+const { useBreakpoint } = Grid;
 
 const dateOptions = [
   "Today",
@@ -15,27 +31,12 @@ const dateOptions = [
 ];
 
 const DateDropdown = ({ onSelect }) => (
-  <div
-    style={{
-      width: 260,
-      background: "#fff",
-      borderRadius: 14,
-      boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
-      padding: 14,
-    }}
-  >
-    {dateOptions.map((d, i) => (
+  <div style={{ padding: 12 }}>
+    {dateOptions.map((d) => (
       <div
-        key={i}
+        key={d}
         onClick={() => onSelect(d)}
-        style={{
-          padding: "12px 14px",
-          borderRadius: 10,
-          cursor: "pointer",
-          fontWeight: 500,
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "#f5f7ff")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        style={{ padding: 10, cursor: "pointer" }}
       >
         {d}
       </div>
@@ -43,107 +44,114 @@ const DateDropdown = ({ onSelect }) => (
   </div>
 );
 
-const filterItems = ["Role", "Team", "Email", "Member", "Recommendation"];
-
-const FilterDropdown = () => {
-  const [checked, setChecked] = useState(filterItems);
-
-  return (
-    <div
-      style={{
-        width: 300,
-        background: "#fff",
-        borderRadius: 14,
-        boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
-        padding: 18,
-      }}
-    >
-      {filterItems.map((f) => (
-        <div key={f} style={{ marginBottom: 12 }}>
-          <Checkbox
-            checked={checked.includes(f)}
-            onChange={(e) =>
-              setChecked((prev) =>
-                e.target.checked ? [...prev, f] : prev.filter((x) => x !== f),
-              )
-            }
-          >
-            {f}
-          </Checkbox>
-        </div>
-      ))}
-
-      <Divider />
-
-      <div style={{ padding: "8px 0", cursor: "pointer" }}>
-        <PlusOutlined /> Create New
+const FilterDropdown = () => (
+  <div style={{ padding: 12 }}>
+    {["Role", "Team", "Email", "Member"].map((f) => (
+      <div key={f} style={{ marginBottom: 8 }}>
+        <Checkbox>{f}</Checkbox>
       </div>
-
-      <div style={{ padding: "8px 0", cursor: "pointer" }}>
-        <FilterOutlined /> Manage Filter
-      </div>
-    </div>
-  );
-};
+    ))}
+    <Divider />
+    Manage Filter
+  </div>
+);
 
 const PageToolbar = () => {
+  const screens = useBreakpoint();
   const pathname = usePathname();
 
+  const [open, setOpen] = useState(false);
+  const [rangeLabel, setRangeLabel] = useState("FEB 01,26 - FEB 28,26");
+
   const segments = pathname.split("/").filter(Boolean);
+  const pageTitle =
+    segments[segments.length - 1]?.charAt(0).toUpperCase() +
+      segments[segments.length - 1]?.slice(1) || "Dashboard";
 
-  const last = segments[segments.length - 1] || "dashboard";
+  /* ================= MOBILE ================= */
+  if (!screens.md) {
+    return (
+      <>
+        {/* top bar */}
+        <div
+          style={{
+            background: "#fff",
+            padding: "12px 16px",
+            borderBottom: "1px solid #eee",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <span style={{ fontWeight: 700 }}>{pageTitle}</span>
 
-  const pageTitle = last.charAt(0).toUpperCase() + last.slice(1);
+          <Button
+            type="text"
+            icon={<MenuOutlined />}
+            onClick={() => setOpen(true)}
+          />
+        </div>
 
+        {/* RIGHT drawer */}
+        <Drawer
+          placement="right" // ✅ slide from right
+          open={open}
+          onClose={() => setOpen(false)}
+          size="100%" // full overlay
+          closable={false}
+          styles={{ body: { padding: 18 } }}
+        >
+          <Button
+            type="text"
+            icon={<ArrowLeftOutlined />}
+            onClick={() => setOpen(false)}
+            style={{ marginBottom: 20, fontWeight: 600 }}
+          >
+            Back
+          </Button>
+
+          <Dropdown
+            trigger={["click"]}
+            popupRender={() => <DateDropdown onSelect={setRangeLabel} />}
+          >
+            <Button block size="large" style={{ marginBottom: 14 }}>
+              {rangeLabel}
+            </Button>
+          </Dropdown>
+
+          <Dropdown trigger={["click"]} popupRender={() => <FilterDropdown />}>
+            <Button block icon={<FilterOutlined />} size="large">
+              FILTER
+            </Button>
+          </Dropdown>
+        </Drawer>
+      </>
+    );
+  }
+
+  /* ================= DESKTOP ================= */
   return (
     <div
       style={{
         background: "#fff",
         padding: "14px 24px",
-        borderBottom: "1px solid #f0f0f0",
+        borderBottom: "1px solid #eee",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
-        top: 64,
-        zIndex: 5,
       }}
     >
-      {/* LEFT SIDE */}
-      <Space size={12}>
-        <span
-          style={{
-            fontWeight: 700,
-            fontSize: 18,
-          }}
-        >
-          {pageTitle}
-        </span>
-
-        <Breadcrumb
-          items={[
-            {
-              title: <>Home</>,
-            },
-            {
-              title: pageTitle,
-            },
-          ]}
-        />
+      <Space>
+        <span style={{ fontWeight: 700 }}>{pageTitle}</span>
+        <Breadcrumb items={[{ title: "Home" }, { title: pageTitle }]} />
       </Space>
 
-      {/* RIGHT SIDE */}
-      <Space size={12}>
-        {/* DATE */}
+      <Space>
         <Dropdown
           trigger={["click"]}
-          popupRender={() => (
-            <DateDropdown onSelect={(d) => setRangeLabel(d)} />
-          )}
+          popupRender={() => <DateDropdown onSelect={setRangeLabel} />}
         >
-          <Button>Feb 01,26 - Feb 28,26</Button>
+          <Button>{rangeLabel}</Button>
         </Dropdown>
 
-        {/* FILTER */}
         <Dropdown trigger={["click"]} popupRender={() => <FilterDropdown />}>
           <Button icon={<FilterOutlined />}>FILTER</Button>
         </Dropdown>

@@ -4,46 +4,76 @@ import React, { useState } from "react";
 import { Layout, Menu, Drawer, Grid } from "antd";
 import {
   DashboardOutlined,
-  BarChartOutlined,
   FileTextOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
 
 const items = [
-  { key: "dashboard", icon: <DashboardOutlined />, label: "Dashboards" },
-  { key: "analytics", icon: <BarChartOutlined />, label: "Analytics" },
-  { key: "reports", icon: <FileTextOutlined />, label: "Reports" },
-  { key: "settings", icon: <SettingOutlined />, label: "Settings" },
+  {
+    key: "dashboards",
+    icon: <DashboardOutlined />,
+    label: "Dashboards",
+    children: [
+      { key: "/dashboard", label: "CRM" },
+      { key: "/dashboard/analytics", label: "Analytics" },
+    ],
+  },
+  {
+    key: "reports",
+    icon: <FileTextOutlined />,
+    label: "Reports",
+    children: [
+      { key: "/dashboard/sales", label: "Sales" },
+      { key: "/dashboard/finance", label: "Finance" },
+    ],
+  },
+  {
+    key: "settings",
+    icon: <SettingOutlined />,
+    label: "Settings",
+    children: [
+      { key: "/dashboard/profile", label: "Profile" },
+      { key: "/dashboard/security", label: "Security" },
+    ],
+  },
 ];
 
 const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
   const screens = useBreakpoint();
+  const router = useRouter();
 
   const [hoverOpen, setHoverOpen] = useState(false);
-
   const isCollapsed = collapsed && !hoverOpen;
 
-  /* ================= MOBILE ================= */
   if (!screens.lg) {
     return (
       <Drawer
         placement="left"
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        st={{ padding: 0 }}
+        styles={{ body: { padding: 0 } }}
       >
-        <Menu mode="inline" items={items} />
+        <Menu
+          mode="inline"
+          items={items}
+          style={{ flex: 1 }}
+          onClick={({ key }) => {
+            if (key.startsWith("/")) {
+              router.push(key);
+              setMobileOpen(false);
+            }
+          }}
+        />
       </Drawer>
     );
   }
-
-  /* ================= DESKTOP ================= */
   return (
     <Sider
-      width={240}
+      width={340}
       collapsedWidth={80}
       collapsed={isCollapsed}
       trigger={null}
@@ -52,7 +82,9 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
         borderRight: "1px solid #eee",
         position: hoverOpen ? "absolute" : "relative",
         zIndex: 1000,
-        height: "100vh",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
       }}
       onMouseEnter={() => collapsed && setHoverOpen(true)}
       onMouseLeave={() => collapsed && setHoverOpen(false)}
@@ -69,7 +101,53 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
         {isCollapsed ? "D" : "DURALUX"}
       </div>
 
-      <Menu mode="inline" items={items} />
+      <Menu
+        mode="inline"
+        items={items}
+        style={{ flex: 1 }}
+        onClick={({ key }) => {
+          if (key.startsWith("/")) {
+            router.push(key);
+          }
+        }}
+      />
+
+      {/* {!isCollapsed && (
+        <div
+          style={{
+            padding: 16,
+          }}
+        >
+          <div
+            style={{
+              background: "#f6f7fb",
+              borderRadius: 14,
+              padding: 20,
+              textAlign: "center",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+            }}
+          >
+            <DownloadOutlined style={{ fontSize: 28, marginBottom: 10 }} />
+
+            <h3 style={{ marginBottom: 8 }}>Downloading Center</h3>
+
+            <p
+              style={{
+                fontSize: 13,
+                color: "#666",
+                marginBottom: 16,
+              }}
+            >
+              Duralux is a production ready CRM to get started up and running
+              easily.
+            </p>
+
+            <Button type="primary" block size="large">
+              DOWNLOAD NOW
+            </Button>
+          </div>
+        </div>
+      )} */}
     </Sider>
   );
 };

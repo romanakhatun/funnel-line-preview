@@ -43,12 +43,6 @@ const Header = ({ collapsed, setCollapsed, onToggleSidebar }) => {
       }}
     >
       <Space size={16}>
-        {/* <Button
-          type="text"
-          icon={<CgMenuLeft size={24} />}
-          onClick={() => setCollapsed(!collapsed)}
-        /> */}
-
         <Button
           type="text"
           icon={<CgMenuLeft size={24} />}

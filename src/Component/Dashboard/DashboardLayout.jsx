@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Layout } from "antd";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import PageToolbar from "./PageToolbar";
 
 const { Content } = Layout;
 
@@ -35,6 +36,7 @@ const DashboardLayout = ({ children }) => {
           onToggleSidebar={handleToggle}
         />
 
+        <PageToolbar />
         <Content style={{ padding: 24, background: "#f6f7fb" }}>
           {children}
         </Content>

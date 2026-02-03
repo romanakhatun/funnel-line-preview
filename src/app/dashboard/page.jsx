@@ -3,13 +3,11 @@ import DashboardBottomCards from "@/Component/Dashboard/DashboardBottomCards";
 import DashboardLeads from "@/Component/Dashboard/DashboardLeads";
 import DashboardMiniStats from "@/Component/Dashboard/DashboardMiniStats";
 import DashboardStats from "@/Component/Dashboard/DashboardStats";
-import PageToolbar from "@/Component/Dashboard/PageToolbar";
 import React from "react";
 
 const Dashboard = () => {
   return (
     <div>
-      <PageToolbar />
       <div style={{ padding: 24 }}>
         <DashboardStats />
       </div>
