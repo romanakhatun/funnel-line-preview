@@ -5,57 +5,57 @@ import { Layout, Menu, Drawer, Grid } from "antd";
 import {
   DashboardOutlined,
   BarChartOutlined,
-  FileOutlined,
-  AppstoreOutlined,
-  DollarOutlined,
-  UserOutlined,
+  FileTextOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
 
+const items = [
+  { key: "dashboard", icon: <DashboardOutlined />, label: "Dashboards" },
+  { key: "analytics", icon: <BarChartOutlined />, label: "Analytics" },
+  { key: "reports", icon: <FileTextOutlined />, label: "Reports" },
+  { key: "settings", icon: <SettingOutlined />, label: "Settings" },
+];
+
 const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
   const screens = useBreakpoint();
-  const isMobile = !screens.lg;
 
-  const menuItems = [
-    { key: "dashboard", icon: <DashboardOutlined />, label: "Dashboards" },
-    { key: "analytics", icon: <BarChartOutlined />, label: "Analytics" },
-    { key: "reports", icon: <FileOutlined />, label: "Reports" },
-    { key: "apps", icon: <AppstoreOutlined />, label: "Applications" },
-    { key: "payment", icon: <DollarOutlined />, label: "Payment" },
-    { key: "customers", icon: <UserOutlined />, label: "Customers" },
-    { key: "settings", icon: <SettingOutlined />, label: "Settings" },
-  ];
+  const [hoverOpen, setHoverOpen] = useState(false);
 
-  /* ================= MOBILE DRAWER ================= */
-  if (isMobile) {
+  const isCollapsed = collapsed && !hoverOpen;
+
+  /* ================= MOBILE ================= */
+  if (!screens.lg) {
     return (
       <Drawer
         placement="left"
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        styles={{ body: { padding: 0 } }}
+        st={{ padding: 0 }}
       >
-        <Menu mode="inline" items={menuItems} style={{ height: "100%" }} />
+        <Menu mode="inline" items={items} />
       </Drawer>
     );
   }
 
-  /* ================= DESKTOP SIDEBAR ================= */
+  /* ================= DESKTOP ================= */
   return (
     <Sider
       width={240}
       collapsedWidth={80}
-      collapsed={collapsed}
+      collapsed={isCollapsed}
       trigger={null}
-      onMouseEnter={() => collapsed && setCollapsed(false)} // hover open
-      onMouseLeave={() => !collapsed && setCollapsed(true)} // hover close
       style={{
         background: "#fff",
-        borderRight: "1px solid #f0f0f0",
+        borderRight: "1px solid #eee",
+        position: hoverOpen ? "absolute" : "relative",
+        zIndex: 1000,
+        height: "100vh",
       }}
+      onMouseEnter={() => collapsed && setHoverOpen(true)}
+      onMouseLeave={() => collapsed && setHoverOpen(false)}
     >
       <div
         style={{
@@ -66,10 +66,10 @@ const Sidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
           fontWeight: 700,
         }}
       >
-        {collapsed ? "D" : "DURALUX"}
+        {isCollapsed ? "D" : "DURALUX"}
       </div>
 
-      <Menu mode="inline" items={menuItems} style={{ borderRight: 0 }} />
+      <Menu mode="inline" items={items} />
     </Sider>
   );
 };

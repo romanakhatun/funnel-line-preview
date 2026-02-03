@@ -82,7 +82,7 @@ const DashboardBottomCards = () => {
                 </div>
               </div>
 
-              <Avatar.Group maxCount={3}>
+              <Avatar.Group max={{ count: 3 }}>
                 <Avatar src="/assets/avatar.png" />
                 <Avatar src="/assets/avatar.png" />
                 <Avatar src="/assets/avatar.png" />
@@ -161,7 +161,7 @@ const DashboardBottomCards = () => {
               <Progress
                 type="circle"
                 percent={t.percent}
-                width={46}
+                size={46}
                 strokeColor={t.color}
               />
             </div>

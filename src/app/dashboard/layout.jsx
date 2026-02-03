@@ -1,18 +1,5 @@
-import React from "react";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import Header from "@/Component/Dashboard/Header";
+import DashboardLayout from "@/Component/Dashboard/DashboardLayout";
 
-const DashboardLayout = ({ children }) => {
-  return (
-    <html lang="en">
-      <body>
-        <AntdRegistry>
-          <Header />
-          {children}
-        </AntdRegistry>
-      </body>
-    </html>
-  );
-};
-
-export default DashboardLayout;
+export default function RootDashboardLayout({ children }) {
+  return <DashboardLayout>{children}</DashboardLayout>;
+}
