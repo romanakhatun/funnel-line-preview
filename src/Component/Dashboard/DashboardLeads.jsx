@@ -1,13 +1,8 @@
 "use client";
-
 import React from "react";
 import { Card, Row, Col, Table, Tag, Avatar } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-
-/* =========================
-   DONUT DATA
-========================= */
 
 const pieData = [
   { name: "New", value: 20, color: "#3456db" },
@@ -20,10 +15,6 @@ const pieData = [
   { name: "Progress", value: 14, color: "#90caf9" },
   { name: "Others", value: 10, color: "#a5d8ff" },
 ];
-
-/* =========================
-   TABLE DATA
-========================= */
 
 const leads = [
   {
@@ -56,13 +47,7 @@ const leads = [
   },
 ];
 
-/* =========================
-   COMPONENT
-========================= */
-
 const DashboardLeads = () => {
-  /* ---------------- TABLE COLUMNS ---------------- */
-
   const columns = [
     {
       title: "USERS",
@@ -102,18 +87,23 @@ const DashboardLeads = () => {
   ];
 
   return (
-    <Row gutter={[24, 24]}>
-      {/* ================= LEFT : DONUT ================= */}
-      <Col xs={24} lg={10}>
+    <Row gutter={[24, 24]} align="stretch">
+      <Col xs={24} lg={10} style={{ display: "flex" }}>
         <Card
           title="Leads Overview"
           extra={<MoreOutlined />}
           style={{
             borderRadius: 16,
             boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          styles={{
+            body: { flex: 1, display: "flex", flexDirection: "column" },
           }}
         >
-          {/* donut */}
           <div style={{ height: 320 }}>
             <ResponsiveContainer>
               <PieChart>
@@ -131,8 +121,7 @@ const DashboardLeads = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* legend grid */}
-          <Row gutter={[10, 10]}>
+          <Row gutter={[10, 10]} style={{ marginTop: "auto" }}>
             {pieData.map((item) => (
               <Col span={8} key={item.name}>
                 <div
@@ -161,15 +150,19 @@ const DashboardLeads = () => {
         </Card>
       </Col>
 
-      {/* ================= RIGHT : TABLE ================= */}
-      <Col xs={24} lg={14}>
+      <Col xs={24} lg={14} style={{ display: "flex" }}>
         <Card
           title="Latest Leads"
           extra={<MoreOutlined />}
           style={{
             borderRadius: 16,
             boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
           }}
+          styles={{ body: { flex: 1 } }}
         >
           <Table
             columns={columns}

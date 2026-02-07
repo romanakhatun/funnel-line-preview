@@ -27,6 +27,19 @@ const team = [
   { name: "Kenneth Hune", role: "Marketing", percent: 75, color: "#16a34a" },
 ];
 
+const cardStyle = {
+  borderRadius: 16,
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+};
+
+const bodyStyle = {
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+};
+
 const DashboardBottomCards = () => {
   return (
     <Row gutter={[24, 24]}>
@@ -34,53 +47,56 @@ const DashboardBottomCards = () => {
         <Card
           title="Upcoming Schedule"
           extra={<MoreOutlined />}
-          style={{ borderRadius: 16 }}
+          style={cardStyle}
+          styles={{ body: bodyStyle }}
         >
-          {schedules.map((item, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: 14,
-                border: "1px dashed #e5e7eb",
-                borderRadius: 10,
-                marginBottom: 14,
-              }}
-            >
-              <div style={{ display: "flex", gap: 12 }}>
-                {/* date box */}
-                <div
-                  style={{
-                    background: item.color + "20",
-                    color: item.color,
-                    padding: 10,
-                    borderRadius: 8,
-                    fontWeight: 700,
-                    textAlign: "center",
-                    minWidth: 46,
-                  }}
-                >
-                  {item.day}
-                  <div style={{ fontSize: 10 }}>DEC</div>
-                </div>
+          <div style={{ flex: 1 }}>
+            {schedules.map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: 14,
+                  border: "1px dashed #e5e7eb",
+                  borderRadius: 10,
+                  marginBottom: 14,
+                }}
+              >
+                <div style={{ display: "flex", gap: 12 }}>
+                  {/* date box */}
+                  <div
+                    style={{
+                      background: item.color + "20",
+                      color: item.color,
+                      padding: 10,
+                      borderRadius: 8,
+                      fontWeight: 700,
+                      textAlign: "center",
+                      minWidth: 46,
+                    }}
+                  >
+                    {item.day}
+                    <div style={{ fontSize: 10 }}>DEC</div>
+                  </div>
 
-                <div>
-                  <div style={{ fontWeight: 600 }}>{item.title}</div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>
-                    {item.time}
+                  <div>
+                    <div style={{ fontWeight: 600 }}>{item.title}</div>
+                    <div style={{ fontSize: 12, color: "#6b7280" }}>
+                      {item.time}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <Avatar.Group max={{ count: 3 }}>
-                <Avatar src="/assets/avatar.png" />
-                <Avatar src="/assets/avatar.png" />
-                <Avatar src="/assets/avatar.png" />
-              </Avatar.Group>
-            </div>
-          ))}
+                <Avatar.Group max={{ count: 3 }}>
+                  <Avatar src="/assets/avatar.png" />
+                  <Avatar src="/assets/avatar.png" />
+                  <Avatar src="/assets/avatar.png" />
+                </Avatar.Group>
+              </div>
+            ))}
+          </div>
 
           <div style={{ textAlign: "center", marginTop: 12, fontWeight: 600 }}>
             UPCOMING SCHEDULE
@@ -91,28 +107,31 @@ const DashboardBottomCards = () => {
         <Card
           title="Project Status"
           extra={<MoreOutlined />}
-          style={{ borderRadius: 16 }}
+          style={cardStyle}
+          styles={{ body: bodyStyle }}
         >
-          {projects.map((p, i) => (
-            <div key={i} style={{ marginBottom: 18 }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: 6,
-                }}
-              >
-                <span style={{ fontWeight: 600 }}>{p.name}</span>
-                <span>{p.percent}%</span>
-              </div>
+          <div style={{ flex: 1 }}>
+            {projects.map((p, i) => (
+              <div key={i} style={{ marginBottom: 18 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: 6,
+                  }}
+                >
+                  <span style={{ fontWeight: 600 }}>{p.name}</span>
+                  <span>{p.percent}%</span>
+                </div>
 
-              <Progress
-                percent={p.percent}
-                showInfo={false}
-                strokeColor={p.color}
-              />
-            </div>
-          ))}
+                <Progress
+                  percent={p.percent}
+                  showInfo={false}
+                  strokeColor={p.color}
+                />
+              </div>
+            ))}
+          </div>
 
           <div style={{ textAlign: "center", marginTop: 10, fontWeight: 600 }}>
             UPCOMING PROJECTS
@@ -120,42 +139,46 @@ const DashboardBottomCards = () => {
         </Card>
       </Col>
 
-      {/* ================= TEAM PROGRESS ================= */}
       <Col xs={24} lg={8}>
         <Card
           title="Team Progress"
           extra={<MoreOutlined />}
-          style={{ borderRadius: 16 }}
+          style={cardStyle}
+          styles={{ body: bodyStyle }}
         >
-          {team.map((t, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: 14,
-                border: "1px dashed #e5e7eb",
-                borderRadius: 10,
-                marginBottom: 14,
-              }}
-            >
-              <Space>
-                <Avatar src="/assets/avatar.png" />
-                <div>
-                  <div style={{ fontWeight: 600 }}>{t.name}</div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>{t.role}</div>
-                </div>
-              </Space>
+          <div style={{ flex: 1 }}>
+            {team.map((t, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: 14,
+                  border: "1px dashed #e5e7eb",
+                  borderRadius: 10,
+                  marginBottom: 14,
+                }}
+              >
+                <Space>
+                  <Avatar src="/assets/avatar.png" />
+                  <div>
+                    <div style={{ fontWeight: 600 }}>{t.name}</div>
+                    <div style={{ fontSize: 12, color: "#6b7280" }}>
+                      {t.role}
+                    </div>
+                  </div>
+                </Space>
 
-              <Progress
-                type="circle"
-                percent={t.percent}
-                size={46}
-                strokeColor={t.color}
-              />
-            </div>
-          ))}
+                <Progress
+                  type="circle"
+                  percent={t.percent}
+                  size={46}
+                  strokeColor={t.color}
+                />
+              </div>
+            ))}
+          </div>
 
           <div style={{ textAlign: "center", marginTop: 10, fontWeight: 600 }}>
             UPDATE 30 MIN AGO

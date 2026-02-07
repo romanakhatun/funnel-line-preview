@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { Card, Row, Col, Progress } from "antd";
 import {
@@ -13,7 +12,6 @@ import {
 import Image from "next/image";
 
 /* Chart Data */
-
 const data = [
   { month: "JAN/23", value: 22, bg: 45 },
   { month: "FEB/23", value: 10, bg: 55 },
@@ -30,7 +28,6 @@ const data = [
 ];
 
 /* Product Data */
-
 const products = [
   {
     name: "Shopify eCommerce Store",
@@ -57,17 +54,22 @@ const products = [
 
 const DashboardAnalytics = () => {
   return (
-    <Row gutter={[24, 24]}>
-      {/*  Record */}
-      <Col xs={24} lg={16}>
+    <Row gutter={[24, 24]} align="stretch">
+      <Col xs={24} lg={16} style={{ display: "flex" }}>
         <Card
           title="Payment Record"
           style={{
             borderRadius: 16,
             boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          styles={{
+            body: { flex: 1, display: "flex", flexDirection: "column" },
           }}
         >
-          {/* Chart */}
           <ResponsiveContainer width="100%" height={340}>
             <ComposedChart data={data}>
               <XAxis dataKey="month" />
@@ -79,16 +81,12 @@ const DashboardAnalytics = () => {
                 barSize={16}
                 radius={[6, 6, 0, 0]}
               />
-
-              {/* blue bars */}
               <Bar
                 dataKey="value"
                 fill="#3456db"
                 barSize={16}
                 radius={[6, 6, 0, 0]}
               />
-
-              {/* smooth line */}
               <Line
                 type="monotone"
                 dataKey="bg"
@@ -98,7 +96,6 @@ const DashboardAnalytics = () => {
             </ComposedChart>
           </ResponsiveContainer>
 
-          {/* Bottom mini stats */}
           <Row gutter={16} style={{ marginTop: 26 }}>
             {[
               { label: "Awaiting", val: "$5,486", color: "#3456db" },
@@ -117,17 +114,11 @@ const DashboardAnalytics = () => {
                   <div style={{ fontSize: 13, color: "#6b7280" }}>
                     {s.label}
                   </div>
-
                   <div
-                    style={{
-                      fontWeight: 700,
-                      fontSize: 18,
-                      margin: "6px 0",
-                    }}
+                    style={{ fontWeight: 700, fontSize: 18, margin: "6px 0" }}
                   >
                     {s.val}
                   </div>
-
                   <Progress
                     percent={80}
                     showInfo={false}
@@ -140,27 +131,33 @@ const DashboardAnalytics = () => {
           </Row>
         </Card>
       </Col>
-      <Col xs={24} lg={8}>
+
+      <Col xs={24} lg={8} style={{ display: "flex" }}>
         <Card
-          styles={{ body: { padding: 0 } }}
           style={{
             borderRadius: 16,
             overflow: "hidden",
             boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          styles={{
+            body: {
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              padding: 0,
+            },
           }}
         >
-          <div
-            style={{
-              background: "#3456db",
-              padding: 22,
-              color: "#fff",
-            }}
-          >
+          <div style={{ background: "#3456db", padding: 22, color: "#fff" }}>
             <h2 style={{ margin: 0 }}>30,569</h2>
             <div>Total Sales</div>
           </div>
 
-          <div>
+          <div style={{ flex: 1 }}>
             {products.map((item, i) => (
               <div
                 key={i}
@@ -173,38 +170,16 @@ const DashboardAnalytics = () => {
                     i !== products.length - 1 ? "1px dashed #e5e7eb" : "none",
                 }}
               >
-                {/* left */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 14,
-                  }}
-                >
-                  <Image
-                    src={item.icon}
-                    alt="icon"
-                    style={{
-                      borderRadius: 10,
-                    }}
-                    width={48}
-                    height={48}
-                  />
-
+                <div style={{ display: "flex", gap: 14 }}>
+                  <Image src={item.icon} alt="icon" width={48} height={48} />
                   <div>
                     <div style={{ fontWeight: 600 }}>{item.name}</div>
-                    <div
-                      style={{
-                        fontSize: 13,
-                        color: "#6b7280",
-                      }}
-                    >
+                    <div style={{ fontSize: 13, color: "#6b7280" }}>
                       {item.cat}
                     </div>
                   </div>
                 </div>
 
-                {/* right */}
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontWeight: 600 }}>{item.price}</div>
                   <div style={{ fontSize: 12 }}>{item.sold}</div>
@@ -215,10 +190,12 @@ const DashboardAnalytics = () => {
 
           <div
             style={{
+              marginTop: "auto",
               textAlign: "center",
-              padding: 16,
+              padding: 20,
               fontWeight: 600,
               cursor: "pointer",
+              borderTop: "1px solid #eee",
             }}
           >
             FULL DETAILS

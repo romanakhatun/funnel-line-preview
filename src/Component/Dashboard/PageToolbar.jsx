@@ -30,7 +30,15 @@ const dateOptions = [
 ];
 
 const DateDropdown = ({ onSelect }) => (
-  <div style={{ padding: 12 }}>
+  <div
+    style={{
+      padding: 12,
+      background: "#fff",
+      borderRadius: 16,
+      overflow: "hidden",
+      boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
+    }}
+  >
     {dateOptions.map((d) => (
       <div
         key={d}
@@ -44,7 +52,15 @@ const DateDropdown = ({ onSelect }) => (
 );
 
 const FilterDropdown = () => (
-  <div style={{ padding: 12 }}>
+  <div
+    style={{
+      padding: 12,
+      background: "#fff",
+      borderRadius: 16,
+      overflow: "hidden",
+      boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
+    }}
+  >
     {["Role", "Team", "Email", "Member"].map((f) => (
       <div key={f} style={{ marginBottom: 8 }}>
         <Checkbox>{f}</Checkbox>

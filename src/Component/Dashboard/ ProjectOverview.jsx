@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import {
   Card,
@@ -9,10 +8,10 @@ import {
   Progress,
   Button,
   Dropdown,
-  Menu,
   Row,
   Col,
 } from "antd";
+
 import {
   CheckOutlined,
   CalendarOutlined,
@@ -22,6 +21,8 @@ import {
   FileTextOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import ProjectOverviewSimple from "./ProjectOverviewSimple";
+import ProjectAnalyticsChart from "./ProjectAnalyticsChart";
 
 const { Title, Text } = Typography;
 
@@ -34,12 +35,7 @@ const projectList = [
 ];
 
 const StatCard = ({ title, value, color, icon }) => (
-  <Card
-    style={{
-      borderRadius: 14,
-      height: 150,
-    }}
-  >
+  <Card style={{ borderRadius: 14 }}>
     <Space orientation="vertical">
       <Avatar
         size={44}
@@ -58,16 +54,11 @@ const StatCard = ({ title, value, color, icon }) => (
 
 const ProjectOverview = () => {
   const [selectedProject, setSelectedProject] = useState(projectList[0]);
-
-  const menu = (
-    <Menu
-      items={projectList.map((p, i) => ({
-        key: i,
-        label: p,
-        onClick: () => setSelectedProject(p),
-      }))}
-    />
-  );
+  const items = projectList.map((p, i) => ({
+    key: i,
+    label: p,
+    onClick: () => setSelectedProject(p),
+  }));
 
   return (
     <Space orientation="vertical" size={20} style={{ width: "100%" }}>
@@ -85,26 +76,22 @@ const ProjectOverview = () => {
             </Title>
 
             <Space>
-              <Dropdown overlay={menu} trigger={["click"]}>
+              <Dropdown menu={{ items }} trigger={["click"]}>
                 <Button>{selectedProject}</Button>
               </Dropdown>
-
               <Avatar.Group>
                 {[1, 2, 3, 4].map((i) => (
                   <Avatar key={i} src="/assets/avatar.png" />
                 ))}
               </Avatar.Group>
-
               <Text type="secondary">24+ members</Text>
             </Space>
           </Space>
 
-          {/* RIGHT */}
           <Space>
             <Button icon={<CheckOutlined />} />
             <Button icon={<CalendarOutlined />} />
             <Button icon={<BarChartOutlined />} />
-
             <Button
               type="primary"
               icon={<ClockCircleOutlined />}
@@ -119,69 +106,65 @@ const ProjectOverview = () => {
           </Space>
         </Space>
       </Card>
+
       <Row gutter={20}>
-        {/* LEFT BIG INFO */}
         <Col xs={24} lg={14}>
-          <Card style={{ borderRadius: 14 }}>
-            <Space orientation="vertical" size={18} style={{ width: "100%" }}>
-              <Progress percent={78} showInfo={false} size={8} />
-
-              <Text strong>16/25 Tasks Completed (78%)</Text>
-
-              <Space orientation="vertical">
-                <Text>
-                  <b>Billing Type</b>
-                </Text>
-                <Text type="secondary">Project Hours</Text>
-
-                <Text>
-                  <b>Customer</b>
-                </Text>
-                <Text type="secondary">Green Cute</Text>
-              </Space>
-            </Space>
-          </Card>
+          <ProjectOverviewSimple />
         </Col>
-
-        {/* RIGHT CARDS */}
         <Col xs={24} lg={10}>
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <StatCard
-                title="Logged Hours"
-                value="00:00"
-                color="#1677ff"
-                icon={<ArrowRightOutlined />}
-              />
-            </Col>
+          <Space orientation="vertical" style={{ width: "100%" }} size={16}>
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
+                <StatCard
+                  title="Logged Hours"
+                  value="00:00"
+                  color="#1677ff"
+                  icon={<ArrowRightOutlined />}
+                />
+              </Col>
+              <Col span={12}>
+                <StatCard
+                  title="Billable Hours"
+                  value="00:00"
+                  color="#fa8c16"
+                  icon={<FileTextOutlined />}
+                />
+              </Col>
+              <Col span={12}>
+                <StatCard
+                  title="Approved Tasks"
+                  value="16"
+                  color="#22c55e"
+                  icon={<CheckOutlined />}
+                />
+              </Col>
+              <Col span={12}>
+                <StatCard
+                  title="Rejected Tasks"
+                  value="2"
+                  color="#ff4d4f"
+                  icon={<CloseOutlined />}
+                />
+              </Col>
+            </Row>
 
-            <Col span={12}>
-              <StatCard
-                title="Billable Hours"
-                value="00:00"
-                color="#fa8c16"
-                icon={<FileTextOutlined />}
-              />
-            </Col>
+            {/* Open Task */}
+            <Card>
+              <Text strong>16 / 25 Open Tasks</Text>
+              <Progress percent={60} showInfo={false} strokeColor="#fa8c16" />
+            </Card>
 
-            <Col span={12}>
-              <StatCard
-                title="Approved Tasks"
-                value="16"
-                color="#22c55e"
-                icon={<CheckOutlined />}
-              />
-            </Col>
-
-            <Col span={12}>
-              <StatCard
-                title="Rejected Tasks"
-                value="2"
-                color="#ff4d4f"
-                icon={<CloseOutlined />}
-              />
-            </Col>
-          </Row>
+            {/* Days Left */}
+            <Card>
+              <Text strong>25 / 25 Days Left</Text>
+              <Progress percent={100} showInfo={false} strokeColor="#22c55e" />
+            </Card>
+            <Card
+              style={{ height: 380, textAlign: "center", background: "#fff" }}
+            >
+              <ProjectAnalyticsChart />
+            </Card>
+          </Space>
         </Col>
       </Row>
     </Space>
